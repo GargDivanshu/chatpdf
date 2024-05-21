@@ -1438,6 +1438,38 @@
     lodash.merge "^4.6.2"
     postcss-selector-parser "6.0.10"
 
+"@tanstack/query-core@5.36.1":
+  version "5.36.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.36.1.tgz#ae46f935c4752812a56c6815305061a3da82e7b8"
+  integrity sha512-BteWYEPUcucEu3NBcDAgKuI4U25R9aPrHSP6YSf2NvaD2pSlIQTdqOfLRsxH9WdRYg7k0Uom35Uacb6nvbIMJg==
+
+"@tanstack/react-query@^5.37.1":
+  version "5.37.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.37.1.tgz#82d79cdf54923b1f0638c080e8f0439a6a8a2ddc"
+  integrity sha512-EhtBNA8GL3XFeSx6VYUjXQ96n44xe3JGKZCzBINrCYlxbZP6UwBafv7ti4eSRWc2Fy+fybQre0w17gR6lMzULA==
+  dependencies:
+    "@tanstack/query-core" "5.36.1"
+
+"@trpc/client@^11.0.0-rc.374":
+  version "11.0.0-rc.374"
+  resolved "https://registry.yarnpkg.com/@trpc/client/-/client-11.0.0-rc.374.tgz#f33a5b449b2f7470bbba22036b2827ed0e318748"
+  integrity sha512-Ha1GaTT9FCq9BRPQPa+KKRTXSDRwvjHpsoYVl683vNoXnJRtTycMsPdydr/zdL10vuUHjutpLMZNycSRQ9yN0g==
+
+"@trpc/next@^11.0.0-rc.374":
+  version "11.0.0-rc.374"
+  resolved "https://registry.yarnpkg.com/@trpc/next/-/next-11.0.0-rc.374.tgz#aa15d9d68f7d4fa052adfb37a8c983893faf835c"
+  integrity sha512-yKyS0AcI3RF4ZyGHnSNWqIKC2jDpeP5if+z6qjnjsvMsrRXAt/yFobI9qqsu3eeQqfe0LdwiOPAax6A0ALeKXw==
+
+"@trpc/react-query@^11.0.0-rc.374":
+  version "11.0.0-rc.374"
+  resolved "https://registry.yarnpkg.com/@trpc/react-query/-/react-query-11.0.0-rc.374.tgz#53086f7e8fd205222987ad1b7ac647c922af38e5"
+  integrity sha512-zv/KjlxfeuOS5f0G2wl4L3AKzI/shYLj1sKxbtfGKkLRPMbCBqLlw4b37wRf5BLX4gi8f87FXm11Wwa8okD6aQ==
+
+"@trpc/server@^11.0.0-rc.374":
+  version "11.0.0-rc.374"
+  resolved "https://registry.yarnpkg.com/@trpc/server/-/server-11.0.0-rc.374.tgz#1d2fc943604cf5a1ca7407687bc33038ece8b751"
+  integrity sha512-7r76KJwbSV5mffEYQMGBIAVrrJdPot0JzYQD9ZvcInO8q9sn+uVVZQ8XCAq93zXDSodvzGBJhRu3Kn1qXPw5Xg==
+
 "@types/json5@^0.0.29":
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
@@ -4568,3 +4600,8 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
+
+zod@^3.23.8:
+  version "3.23.8"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.23.8.tgz#e37b957b5d52079769fb8097099b592f0ef4067d"
+  integrity sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==
