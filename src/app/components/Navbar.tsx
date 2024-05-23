@@ -2,8 +2,8 @@ import Link from 'next/link'
 import MaxWidthWrapper from './MaxWidthWrapper'
 import { buttonVariants } from './ui/button'
 import {
+  RegisterLink, 
   LoginLink,
-  RegisterLink,
   getKindeServerSession,
 } from '@kinde-oss/kinde-auth-nextjs/server'
 import { ArrowRight } from 'lucide-react'
@@ -11,8 +11,10 @@ import UserAccountNav from './UserAccountNav'
 import MobileNav from './MobileNav'
 
 const Navbar = () => {
-  const { getUser } = getKindeServerSession()
+  const { getUser,isAuthenticated } = getKindeServerSession()
   const user = getUser()
+
+  console.log("user : " + user + " isAuth: " + isAuthenticated)
 
   return (
     <nav className='sticky h-14 inset-x-0 top-0 z-30 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all'>
@@ -63,7 +65,7 @@ const Navbar = () => {
                   Dashboard
                 </Link>
 
-                <UserAccountNav
+                {<UserAccountNav
                   name={
                     !user.given_name || !user.family_name
                       ? 'Your Account'
@@ -71,7 +73,7 @@ const Navbar = () => {
                   }
                   email={user.email ?? ''}
                   imageUrl={user.picture ?? ''}
-                />
+                />}
               </>
             )}
           </div>
