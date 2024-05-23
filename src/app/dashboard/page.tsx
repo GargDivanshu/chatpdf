@@ -7,7 +7,10 @@ const Page = async () => {
 
      if(!user || !user.id) redirect('/auth-callback?origin=dashboard')
     return (
+<div>
         <div>HellWorld, {user.email}</div>
+        <div>HellWorld, {user.email}</div> <div>HellWorld, {user.email}</div> <div>HellWorld, {user.email}</div> <div>HellWorld, {user.email}</div> <div>HellWorld, {user.email}</div> <div>HellWorld, {user.email}</div> <div>HellWorld, {user.email}</div>
+        </div>
     )
 }
 
