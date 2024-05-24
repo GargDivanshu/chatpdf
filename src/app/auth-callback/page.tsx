@@ -1,6 +1,5 @@
 "use client"
-
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { trpc } from '../_trpc/client'
 import { Loader2 } from 'lucide-react'
 
@@ -8,9 +7,10 @@ const Page = () => {
   const router = useRouter()
 
   const searchParams = useSearchParams()
+  const pathname = usePathname()
   const origin = searchParams.get('origin')
 
-  trpc.authCallback.useQuery(undefined, {
+  const {data, isLoading} = trpc.authCallback.useQuery(undefined, {
     onSuccess: ({ success }) => {
       if (success) {
         // user is synced to db
