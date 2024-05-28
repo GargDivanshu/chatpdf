@@ -18,11 +18,16 @@ export async function POST(req: Request) {
     const { messages, chatId } = await req.json();
     const _chats = await db.select().from(chats).where(eq(chats.id, chatId));
     if (_chats.length != 1) {
+      console.error("Chat not found for chatId:", chatId);
       return NextResponse.json({ error: "chat not found" }, { status: 404 });
     }
     const fileKey = _chats[0].fileKey;
     const lastMessage = messages[messages.length - 1];
     const context = await getContext(lastMessage.content, fileKey);
+
+    if (!context) {
+      console.error("No context found for fileKey:", fileKey);
+    }
 
     const prompt = {
       role: "system",
@@ -36,10 +41,9 @@ export async function POST(req: Request) {
       ${context}
       END OF CONTEXT BLOCK
       AI assistant will take into account any CONTEXT BLOCK that is provided in a conversation.
-      If the context does not provide the answer to question, the AI assistant will say, "I'm sorry, but I don't know the answer to that question".
-      AI assistant will not apologize for previous responses, but instead will indicated new information was gained.
-      AI assistant will not invent anything that is not drawn directly from the context.
-      `,
+      If the context does not provide the answer to the question, the AI assistant will say, "I'm sorry, but I don't know the answer to that question".
+      AI assistant will not apologize for previous responses, but instead will indicate new information was gained.
+      AI assistant will not invent anything that is not drawn directly from the context.`,
     };
 
     const response = await openai.createChatCompletion({
@@ -50,9 +54,9 @@ export async function POST(req: Request) {
       ],
       stream: true,
     });
+
     const stream = OpenAIStream(response, {
       onStart: async () => {
-        // save user message into db
         await db.insert(_messages).values({
           chatId,
           content: lastMessage.content,
@@ -60,7 +64,6 @@ export async function POST(req: Request) {
         });
       },
       onCompletion: async (completion) => {
-        // save ai message into db
         await db.insert(_messages).values({
           chatId,
           content: completion,
@@ -68,6 +71,11 @@ export async function POST(req: Request) {
         });
       },
     });
+
     return new StreamingTextResponse(stream);
-  } catch (error) {}
+  } catch (error) {
+    console.error("Error in chat API:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+  }
 }
+

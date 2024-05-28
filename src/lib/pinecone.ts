@@ -45,7 +45,7 @@ export async function loadS3IntoPinecone(fileKey: string) {
     const client = await getPineconeClient();
     const pineconeIndex = await client.index("chatpdfproject");
     // Use the default namespace because gcp-starter do not support namespaces.
-    const namespace = pineconeIndex.namespace("");
+    const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
 
     console.log("Inserting vectors into Pinecone");
     await namespace.upsert(vectors);

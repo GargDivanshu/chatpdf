@@ -50,7 +50,7 @@ const ChatComponent = ({ chatId }: Props) => {
 
       {/* message list */}
       <MessageList messages={messages} isLoading={isLoading} />
-
+      
       <form
         onSubmit={handleSubmit}
         className="sticky bottom-0 inset-x-0 px-2 py-4 bg-white"
@@ -62,7 +62,7 @@ const ChatComponent = ({ chatId }: Props) => {
             placeholder="Ask any question..."
             className="w-full"
           />
-          <Button className="bg-blue-600 ml-2">
+          <Button className="bg-[#0F172A] ml-2">
             <Send className="h-4 w-4" />
           </Button>
         </div>

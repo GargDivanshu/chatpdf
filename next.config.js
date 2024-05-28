@@ -6,6 +6,22 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  async rewrites() {
+    return [
+      {
+        source: '/api/get-messages',
+        destination: '/api/get-messages',
+      },
+      {
+        source: '/api/chat',
+        destination: '/api/chat',
+      },
+      // Add other API rewrites if needed
+    ];
+  },
+  experimental: {
+    runtime: 'nodejs',
+  },
 };
 
 module.exports = nextConfig;
