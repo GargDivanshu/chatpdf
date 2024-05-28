@@ -52,6 +52,12 @@ export default async function Home() {
                     Go to Chats <ArrowRight className="ml-2" />
                   </Button>
                 </Link>
+
+                <Link href={`/dashboard/${userId}`}>
+                  <Button>
+                    Go to Dashboard <ArrowRight className="ml-2" />
+                  </Button>
+                </Link>
               </>
             )}
           </div>

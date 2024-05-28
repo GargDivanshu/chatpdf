@@ -23,6 +23,7 @@
     "ai": "^2.2.11",
     "autoprefixer": "10.4.15",
     "axios": "^1.5.0",
+    "bull": "^4.12.9",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cross-env": "^7.0.3",
