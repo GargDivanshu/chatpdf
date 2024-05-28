@@ -13,7 +13,7 @@ export async function POST(req: Request, res: Response) {
   }
   try {
     const body = await req.json();
-    const { file_key, file_name } = body;
+    const { file_key, file_name, projectName, projectDescription } = body;
     console.log(file_key, file_name);
     await loadS3IntoPinecone(file_key);
     const chat_id = await db
@@ -22,6 +22,8 @@ export async function POST(req: Request, res: Response) {
         fileKey: file_key,
         pdfName: file_name,
         pdfUrl: getS3Url(file_key),
+        projectName: projectName,
+        projectDesc: projectDescription,
         userId,
       })
       .returning({
