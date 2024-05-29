@@ -1,7 +1,3 @@
-![Build and Deploy Full Stack ChatPDF Clone](https://github.com/Elliott-Chong/chatpdf-yt/assets/77007117/7fcee290-ca52-46ee-ae82-3490f505270b)
-
-[Link to YouTube Tutorial](https://www.youtube.com/watch?v=bZFedu-0emE)
-
 # Overview
 
 Welcome to the "chatpdf" project, a comprehensive chat application with PDF integration. This project is designed to provide a seamless chat experience where users can upload PDF files, create chats around them, and interact with an AI assistant. The AI assistant uses the OpenAI API to generate responses based on the chat context.
