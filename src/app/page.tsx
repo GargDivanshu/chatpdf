@@ -44,7 +44,7 @@ export default async function Home() {
               </Link>
             )}
           </div>
-          <div className="flex mt-2">
+          <div className="flex mt-2 justify-between w-full">
             {isAuth && firstChat && (
               <>
                 <Link href={`/chat/${firstChat.id}`}>

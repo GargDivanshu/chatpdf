@@ -1,7 +1,7 @@
 // pages/chat-list.tsx (or any appropriate file name in the pages directory)
 
 import React from 'react';
-import { GetServerSideProps } from 'next';
+// import { GetServerSideProps } from 'next';
 import { db } from "@/lib/db";
 import { chats } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -35,6 +35,14 @@ type Props = {
 
 const Page: React.FC<Props> = async ({ params: {user_Id}}:Props) => {
     const { userId } = await auth();
+    if (!userId) {
+      return {
+        redirect: {
+          destination: '/sign-in',
+          permanent: false,
+        },
+      };
+    }
     const _chats = await db.select().from(chats).where(eq(chats.userId, userId));
 
     function formatDateToIST(dateString: string): string {
@@ -92,25 +100,25 @@ console.log(_chats[0])
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { userId } = await auth();
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const { userId } = await auth();
 
-  if (!userId) {
-    return {
-      redirect: {
-        destination: '/sign-in',
-        permanent: false,
-      },
-    };
-  }
+//   if (!userId) {
+//     return {
+//       redirect: {
+//         destination: '/sign-in',
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  const _chats = await db.select().from(chats).where(eq(chats.userId, userId));
+//   const _chats = await db.select().from(chats).where(eq(chats.userId, userId));
 
-  return {
-    props: {
-      _chats,
-    },
-  };
-};
+//   return {
+//     props: {
+//       _chats,
+//     },
+//   };
+// };
 
 export default Page;
