@@ -4,6 +4,9 @@ import { loadS3IntoPinecone } from "@/lib/pinecone";
 import { getS3Url } from "@/lib/s3";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
+import { pdfQueue } from '@/lib/pdfWorker';
+
+
 
 // /api/create-chat
 export async function POST(req: Request, res: Response) {
@@ -15,24 +18,32 @@ export async function POST(req: Request, res: Response) {
     const body = await req.json();
     const { file_key, file_name, projectName, projectDescription } = body;
     console.log(file_key, file_name);
-    await loadS3IntoPinecone(file_key);
-    const chat_id = await db
-      .insert(chats)
-      .values({
-        fileKey: file_key,
-        pdfName: file_name,
-        pdfUrl: getS3Url(file_key),
-        projectName: projectName,
-        projectDesc: projectDescription,
-        userId,
-      })
-      .returning({
-        insertedId: chats.id,
-      });
+
+    const chat_id = await pdfQueue.add('pdf-processing', {
+      fileKey: file_key,
+      fileName: file_name,
+      projectName,
+      projectDescription,
+      userId,
+    });
+    // await loadS3IntoPinecone(file_key);
+    // const chat_id = await db
+    //   .insert(chats)
+    //   .values({
+    //     fileKey: file_key,
+    //     pdfName: file_name,
+    //     pdfUrl: getS3Url(file_key),
+    //     projectName: projectName,
+    //     projectDesc: projectDescription,
+    //     userId,
+    //   })
+    //   .returning({
+    //     insertedId: chats.id,
+    //   });
 
     return NextResponse.json(
       {
-        chat_id: chat_id[0].insertedId,
+        chat_id: chat_id,
       },
       { status: 200 }
     );
