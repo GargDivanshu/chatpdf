@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { UserButton, auth } from "@clerk/nextjs";
 import Link from "next/link";
-import { ArrowRight, LogIn } from "lucide-react";
+import { LayoutDashboard, LogIn, MessageSquare } from "lucide-react";
 import FileUpload from "@/components/FileUpload";
 import { db } from "@/lib/db";
 import { chats } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import Navbar from '@/components/Navbar'
 
 export default async function Home() {
   const { userId } = await auth();
@@ -20,10 +21,7 @@ export default async function Home() {
 
   return (
     <div className="w-screen min-h-screen bg-gradient-to-r from-[#F9F9F9] to-[#F4F4F4]">
-      <nav className="flex flex-row justify-between gap-4 p-6">
-        <span className="text-3xl font-semibold">Chat with Pdf</span> 
-        <UserButton afterSignOutUrl="/" />
-      </nav>
+      <Navbar />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="flex flex-col items-center text-center">
           <div className="flex items-center">
@@ -49,13 +47,13 @@ export default async function Home() {
               <>
                 <Link href={`/chat/${firstChat.id}`}>
                   <Button>
-                    Go to Chats <ArrowRight className="ml-2" />
+                    Go to Chats <MessageSquare className="ml-2" />
                   </Button>
                 </Link>
 
                 <Link href={`/dashboard/${userId}`}>
                   <Button>
-                    Go to Dashboard <ArrowRight className="ml-2" />
+                    Go to Dashboard <LayoutDashboard className="ml-2" />
                   </Button>
                 </Link>
               </>

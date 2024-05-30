@@ -18,6 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import Navbar from '@/components/Navbar'
 
 
 
@@ -65,7 +66,10 @@ const Page: React.FC<Props> = async ({ params: {user_Id}}:Props) => {
 
 console.log(_chats[0])
   return (
-    <div className="flex min-h-screen pb-20 flex-col gap-2 mt-4 mx-auto">
+    <div className="min-h-screen">
+      <Navbar/>
+    <div className="flex pb-4 flex-col gap-2 mt-4 mx-auto">
+
       <span className="text-3xl font-bold text-center mx-auto">DASHBOARD</span>
 
 
@@ -73,7 +77,7 @@ console.log(_chats[0])
     <Table>
       {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
       <TableHeader>
-        <TableRow>
+        <TableRow className="grid grid-cols-4">
           <TableHead className="">Project Name</TableHead>
           <TableHead className="">PDF Name</TableHead>
           <TableHead>Project Description</TableHead>
@@ -84,7 +88,7 @@ console.log(_chats[0])
       <TableBody>
         {_chats.map((chat) => (
           <Link key={chat.id} href={`/chat/${chat.id}`}>
-          <TableRow className="hover:cursor-pointer">
+          <TableRow className="hover:cursor-pointer grid grid-cols-4">
             <TableCell className="font-medium">{chat.projectName}</TableCell>
             <TableCell className="font-medium">{chat.pdfName}</TableCell>
             <TableCell>{chat.projectDesc}</TableCell>
@@ -95,6 +99,7 @@ console.log(_chats[0])
         ))}
       </TableBody>
     </Table>
+    </div>
     </div>
     </div>
   );
