@@ -3,22 +3,29 @@ import { loadS3IntoPinecone } from './pinecone';
 import { db } from '@/lib/db';
 import { chats } from '@/lib/db/schema';
 import { getS3Url } from '@/lib/s3';
-import redis, { createClient } from 'redis';
+import { createClient } from 'redis';
 
 // Wrap the client creation in an async function and await it
 const createRedisClient = async () => {
-  return await redis?.createClient({
-    url: '127.0.0.1:6379', // Replace with your Redis URL
+  const client = createClient({
+    url: 'redis://redis:6379', // Use the Docker service name for Redis
   });
+
+  client.on('error', (err) => {
+    console.error('Redis error:', err);
+  });
+
+  // Wait for the client to be ready
+  await new Promise((resolve, reject) => {
+    client.on('ready', resolve);
+    client.on('error', reject);
+  });
+
+  return client;
 };
 
 // Use async/await to create the Redis client
 const redisClient = await createRedisClient();
-
-// Handle connection errors
-redisClient?.on('error', (err) => {
-  console.error('Redis error:', err);
-});
 
 export const pdfQueue = new Queue('pdf-processing', { connection: redisClient });
 
