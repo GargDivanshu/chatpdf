@@ -16,6 +16,10 @@ const nextConfig = {
         source: '/api/chat',
         destination: '/api/chat',
       },
+      {
+        source: '/api/create-chat',
+        destination: '/api/create-chat',
+      },
       // Add other API rewrites if needed
     ];
   },
