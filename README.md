@@ -23,3 +23,5 @@ It will generate one web image and one redis image, web image will converse the 
 - OpenAI API
 - Pinecone
 - Neon Database Serverless
+
+![DEMO](https://www.loom.com/share/fc5a5e7e93614ba7afe61bb52614f5b0?sid=ad92134e-9e3f-49ae-a693-a1bc1f0967c3)
