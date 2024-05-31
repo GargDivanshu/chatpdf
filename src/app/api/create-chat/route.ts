@@ -19,27 +19,27 @@ export async function POST(req: Request, res: Response) {
     const { file_key, file_name, projectName, projectDescription } = body;
     console.log(file_key, file_name);
 
-    // const chat_id = await pdfQueue.add('pdf-processing', {
-    //   fileKey: file_key,
-    //   fileName: file_name,
-    //   projectName,
-    //   projectDescription,
-    //   userId,
-    // });
-    await loadS3IntoPinecone(file_key);
-    const chat_id = await db
-      .insert(chats)
-      .values({
-        fileKey: file_key,
-        pdfName: file_name,
-        pdfUrl: getS3Url(file_key),
-        projectName: projectName,
-        projectDesc: projectDescription,
-        userId,
-      })
-      .returning({
-        insertedId: chats.id,
-      });
+    const chat_id = await pdfQueue.add('pdf-processing', {
+      fileKey: file_key,
+      fileName: file_name,
+      projectName,
+      projectDescription,
+      userId,
+    });
+    // await loadS3IntoPinecone(file_key);
+    // const chat_id = await db
+    //   .insert(chats)
+    //   .values({
+    //     fileKey: file_key,
+    //     pdfName: file_name,
+    //     pdfUrl: getS3Url(file_key),
+    //     projectName: projectName,
+    //     projectDesc: projectDescription,
+    //     userId,
+    //   })
+    //   .returning({
+    //     insertedId: chats.id,
+    //   });
 
       
     return NextResponse.json(
