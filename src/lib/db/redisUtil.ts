@@ -22,19 +22,21 @@ async function addJobToQueue(data: any) {
 
 const worker = new Worker('myQueue', async (job) => {
   console.log('Processing job:', job.data);
-  const { file_key, file_name, projectName, projectDescription, userId } = job.data;
+  const { fileKey, fileName, projectName, projectDescription, userId } = job.data;
+  
 
   try {
-    console.log(file_name + " :pdfName:")
+    console.log(fileKey + " :pdfKey:")
+    console.log(fileName + " :pdfName:")
     const result = await db
       .insert(chats)
       .values({
-        fileKey: file_key,
-        pdfName: file_name,
-        pdfUrl: getS3Url(file_key),
+        fileKey: fileKey,
+        pdfName: fileName,
+        pdfUrl: getS3Url(fileKey),
         projectName,
         projectDesc: projectDescription,
-        userId,
+        userId,
       })
       .returning({
         insertedId: chats.id,
