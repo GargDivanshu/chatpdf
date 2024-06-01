@@ -4,7 +4,7 @@ import { loadS3IntoPinecone } from '@/lib/pinecone';  // Adjust the import path 
 import { db } from './index';  // Adjust the import path as necessary
 import { chats } from './schema';  // Adjust the import path as necessary
 import { getS3Url } from '@/lib/s3';  // Adjust the import path as necessary
-import {redis} from './index'
+import {redis} from './redis'
 
 
 const myQueue = new Queue('myQueue', {
