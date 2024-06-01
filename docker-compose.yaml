@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://chatpdf_owner:UMZGbV7Etzy5@ep-steep-leaf-a1dgtz5r.ap-southeast-1.aws.neon.tech/chatpdf?sslmode=require
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:6.2
+    restart: always
+    ports:
+      - "6379:6379"
+    healthcheck:
+            test: ["CMD", "redis-cli", "ping"]
+            interval: 5s 
+            timeout: 10s
+            retries: 120

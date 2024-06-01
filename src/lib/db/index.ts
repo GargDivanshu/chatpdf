@@ -12,8 +12,12 @@ if (!process.env.DATABASE_URL) {
 const sql = neon(process.env.DATABASE_URL);
 
 // ioredis client setup
-const redisClient = new Redis('redis://127.0.0.1:6379');
+const redisHost = process.env.REDIS_HOST || 'redis';
+const redisPort = process.env.REDIS_PORT || '6379';
+const redisUrl = `redis://${redisHost}:${redisPort}`;
 
+// ioredis client setup
+const redisClient = new Redis(redisUrl);
 redisClient.on('error', (err) => console.log('Redis Client Error', err));
 
 redisClient.on('connect', () => {
