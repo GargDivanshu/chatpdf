@@ -18,7 +18,7 @@ RUN chmod +x /usr/local/bin/wait-for-it.sh
 COPY . .
 
 # Expose the port your app runs on
-EXPOSE 3000
+EXPOSE 3000 6379
 
 # Define the command to run your app
 CMD ["wait-for-it.sh", "redis:6379", "--", "npm", "run", "dev"]

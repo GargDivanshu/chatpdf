@@ -6,9 +6,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - DATABASE_URL=postgresql://chatpdf_owner:UMZGbV7Etzy5@ep-steep-leaf-a1dgtz5r.ap-southeast-1.aws.neon.tech/chatpdf?sslmode=require
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
+      - ./.env
     depends_on:
       - redis
 

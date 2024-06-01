@@ -1,28 +1,31 @@
 import { Queue, Worker } from 'bullmq';
-import { redis } from './index';
+import Redis from 'ioredis';
 import { loadS3IntoPinecone } from '@/lib/pinecone';  // Adjust the import path as necessary
 import { db } from './index';  // Adjust the import path as necessary
 import { chats } from './schema';  // Adjust the import path as necessary
 import { getS3Url } from '@/lib/s3';  // Adjust the import path as necessary
+import {redis} from './index'
 
-// Create a queue
+
 const myQueue = new Queue('myQueue', {
   connection: redis,
 });
 
-// Add a job to the queue (example function, call this where appropriate)
+// const queueScheduler = new QueueScheduler('myQueue', {
+//   connection: redis,
+// });
+
 async function addJobToQueue(data: any) {
-  await myQueue.add('myJob', data);
+  const job = await myQueue.add('myJob', data);
+  return job.id;
 }
 
-// Define a worker to process jobs from the queue
 const worker = new Worker('myQueue', async (job) => {
   console.log('Processing job:', job.data);
   const { file_key, file_name, projectName, projectDescription, userId } = job.data;
 
   try {
-    await loadS3IntoPinecone(file_key);
-    await db
+    const result = await db
       .insert(chats)
       .values({
         fileKey: file_key,
@@ -35,6 +38,11 @@ const worker = new Worker('myQueue', async (job) => {
       .returning({
         insertedId: chats.id,
       });
+
+    // Save the result in Redis
+    await redis.set(`job:${job.id}:result`, JSON.stringify(result), 'EX', 60 * 60); // Expires in 1 hour
+
+    return result;
   } catch (error) {
     console.error('Error processing job:', job.id, error);
     throw error;  // Ensure the error is thrown so BullMQ can handle retries
@@ -43,7 +51,7 @@ const worker = new Worker('myQueue', async (job) => {
   connection: redis,
 });
 
-worker.on('completed', (job) => {
+worker.on('completed', async (job) => {
   console.log(`Job with id ${job.id} has been completed`);
 });
 

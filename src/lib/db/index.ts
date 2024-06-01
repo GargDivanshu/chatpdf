@@ -15,6 +15,7 @@ const sql = neon(process.env.DATABASE_URL);
 const redisHost = process.env.REDIS_HOST || 'redis';
 const redisPort = process.env.REDIS_PORT || '6379';
 const redisUrl = `redis://${redisHost}:${redisPort}`;
+// const redisUrl = '127.0.0.1:6379'
 
 // ioredis client setup
 const redisClient = new Redis(redisUrl);

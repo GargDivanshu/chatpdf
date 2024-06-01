@@ -1,12 +1,15 @@
 import { db } from "@/lib/db";
 import { chats } from "@/lib/db/schema";
-import { loadS3IntoPinecone } from "@/lib/pinecone";
-import { getS3Url } from "@/lib/s3";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-import { pdfQueue } from '@/lib/pdfWorker';
+import { addJobToQueue } from '@/lib/db/redisUtil';
+import Redis from 'ioredis';
 
+// const redisHost = process.env.REDIS_HOST || 'redis';
+// const redisPort = process.env.REDIS_PORT || '6379';
+// const redisUrl = `redis://${redisHost}:${redisPort}`;
 
+// const redisClient = new Redis(redisUrl);
 
 // /api/create-chat
 export async function POST(req: Request, res: Response) {
@@ -19,32 +22,17 @@ export async function POST(req: Request, res: Response) {
     const { file_key, file_name, projectName, projectDescription } = body;
     console.log(file_key, file_name);
 
-    const chat_id = await pdfQueue.add('pdf-processing', {
+    const jobId = await addJobToQueue({
       fileKey: file_key,
       fileName: file_name,
       projectName,
       projectDescription,
       userId,
     });
-    // await loadS3IntoPinecone(file_key);
-    // const chat_id = await db
-    //   .insert(chats)
-    //   .values({
-    //     fileKey: file_key,
-    //     pdfName: file_name,
-    //     pdfUrl: getS3Url(file_key),
-    //     projectName: projectName,
-    //     projectDesc: projectDescription,
-    //     userId,
-    //   })
-    //   .returning({
-    //     insertedId: chats.id,
-    //   });
 
-      
     return NextResponse.json(
       {
-        chat_id: chat_id[0].insertedId,
+        jobId: jobId[0].insertedId,
       },
       { status: 200 }
     );
