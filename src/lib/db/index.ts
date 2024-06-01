@@ -14,11 +14,13 @@ const sql = neon(process.env.DATABASE_URL);
 // ioredis client setup
 const redisHost = process.env.REDIS_HOST || 'redis';
 const redisPort = process.env.REDIS_PORT || '6379';
-const redisUrl = `redis://${redisHost}:${redisPort}`;
-// const redisUrl = '127.0.0.1:6379'
+// const redisUrl = `redis://${redisHost}:${redisPort}`;
+const redisUrl = '127.0.0.1:6379'
 
 // ioredis client setup
-const redisClient = new Redis(redisUrl);
+const redisClient = new Redis(redisUrl, {
+  maxRetriesPerRequest: null
+});
 redisClient.on('error', (err) => console.log('Redis Client Error', err));
 
 redisClient.on('connect', () => {

@@ -25,6 +25,7 @@ const worker = new Worker('myQueue', async (job) => {
   const { file_key, file_name, projectName, projectDescription, userId } = job.data;
 
   try {
+    console.log(file_name + " :pdfName:")
     const result = await db
       .insert(chats)
       .values({
