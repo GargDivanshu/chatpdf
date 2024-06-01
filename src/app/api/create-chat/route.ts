@@ -30,9 +30,13 @@ export async function POST(req: Request, res: Response) {
       userId,
     });
 
+    console.log(jobId + " :jobid: ");
+
+
+
     return NextResponse.json(
       {
-        jobId: jobId[0].insertedId,
+        jobId: jobId,
       },
       { status: 200 }
     );

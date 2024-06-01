@@ -28,6 +28,7 @@ const worker = new Worker('myQueue', async (job) => {
   try {
     console.log(fileKey + " :pdfKey:")
     console.log(fileName + " :pdfName:")
+    await loadS3IntoPinecone(fileKey);
     const result = await db
       .insert(chats)
       .values({
