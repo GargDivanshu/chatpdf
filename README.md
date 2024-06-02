@@ -6,6 +6,10 @@ This is Chat with PDF, built by me and feel free to check out this project at ht
 2) Get a seamless ChatGPT Interface for chatting with Pdf
 3) Checkout all your uploaded files from dashboard
 
+# Demo
+
+https://github.com/GargDivanshu/chatpdf/assets/96184674/78e76f20-aeb7-42a6-a668-a4010f061157
+
 # Docker file branch
 
 The docker file can be found at branch 'docker'
