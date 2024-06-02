@@ -13,6 +13,8 @@ build the images and then add your own envs and run
 It will generate one web image and one redis image, web image will converse the redis image for implementation of messaging queues.
 
 - `add your api keys in .env file`
+- `git clone https://github.com/GargDivanshu/chatpdf.git`
+- `cd chatpdf`
 - `docker-compose up --build`  
 
 # Technologies and Frameworks
