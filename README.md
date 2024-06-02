@@ -12,7 +12,7 @@ The docker file can be found at branch 'docker'
 build the images and then add your own envs and run
 It will generate one web image and one redis image, web image will converse the redis image for implementation of messaging queues.
 
-- `add your api keys in .env file`
+- `add your api keys in .env file in the root of your project`
 - `git clone https://github.com/GargDivanshu/chatpdf.git`
 - `cd chatpdf`
 - `docker-compose up --build`  
