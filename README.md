@@ -12,6 +12,9 @@ The docker file can be found at branch 'docker'
 build the images and then add your own envs and run
 It will generate one web image and one redis image, web image will converse the redis image for implementation of messaging queues.
 
+- `add your api keys in .env file`
+- `docker-compose up --build`  
+
 # Technologies and Frameworks
 
 - Next.js
